@@ -1,0 +1,29 @@
+# Source files
+src/
+scripts/
+*.ts
+!dist/**/*.d.ts
+
+# Development files
+.git/
+.github/
+node_modules/
+coverage/
+*.log
+*.lock
+
+# Config files
+tsconfig.json
+rollup.config.js
+jest.config.js
+.eslintrc*
+.prettierrc*
+
+# Documentation (keep README.md)
+docs/
+examples/
+
+# Build artifacts (except dist)
+build/
+lib/
+!dist/
