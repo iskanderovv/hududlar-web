@@ -41,7 +41,7 @@ console.log(villages[0].name_en); // "Bog'bon MFY"
 
 ## 📚 Documentation
 
-Visit [hududlar.dev](https://hududlar.dev) for complete documentation and examples.
+Visit [hududlar.dev](https://hududlar.uz) for complete documentation and examples.
 
 ## 📄 License
 

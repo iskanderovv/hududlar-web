@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://hududlar.dev/sitemap.xml
+Sitemap: https://hududlar.uz/sitemap.xml
 
 # Crawl-delay
 Crawl-delay: 1

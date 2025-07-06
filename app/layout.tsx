@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     "qoraqalpog'iston",
     "karakalpakstan"
   ],
-  authors: [{ name: "Hududlar Team", url: "https://hududlar.dev" }],
+  authors: [{ name: "Hududlar Team", url: "https://hududlar.uz" }],
   creator: "Hududlar Development Team",
   publisher: "Hududlar",
   robots: {
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "uz_UZ",
     alternateLocale: ["ru_RU", "en_US"],
-    url: "https://hududlar.dev",
+    url: "https://hududlar.uz",
     siteName: "Hududlar - O'zbekiston Ma'muriy Hududlari",
     title: "Hududlar - O'zbekiston Ma'muriy Hududlari TypeScript Kutubxonasi",
     description: "O'zbekistonning barcha viloyat, tuman va qishloqlarini olish uchun eng yaxshi TypeScript kutubxonasi. 14 viloyat, 200+ tuman, 1000+ qishloq ma'lumotlari.",
@@ -97,11 +97,11 @@ export const metadata: Metadata = {
     images: ["/twitter-image.png"],
   },
   alternates: {
-    canonical: "https://hududlar.dev",
+    canonical: "https://hududlar.uz",
     languages: {
-      'uz-UZ': 'https://hududlar.dev/uz',
-      'ru-RU': 'https://hududlar.dev/ru',
-      'en-US': 'https://hududlar.dev/en',
+      'uz-UZ': 'https://hududlar.uz/uz',
+      'ru-RU': 'https://hududlar.uz/ru',
+      'en-US': 'https://hududlar.uz/en',
     },
   },
   category: "Technology",
@@ -127,11 +127,11 @@ export default function RootLayout({
   return (
     <html lang="uz" dir="ltr">
       <head>
-        <link rel="canonical" href="https://hududlar.dev" />
-        <link rel="alternate" hrefLang="uz" href="https://hududlar.dev/uz" />
-        <link rel="alternate" hrefLang="ru" href="https://hududlar.dev/ru" />
-        <link rel="alternate" hrefLang="en" href="https://hududlar.dev/en" />
-        <link rel="alternate" hrefLang="x-default" href="https://hududlar.dev" />
+        <link rel="canonical" href="https://hududlar.uz" />
+        <link rel="alternate" hrefLang="uz" href="https://hududlar.uz/uz" />
+        <link rel="alternate" hrefLang="ru" href="https://hududlar.uz/ru" />
+        <link rel="alternate" hrefLang="en" href="https://hududlar.uz/en" />
+        <link rel="alternate" hrefLang="x-default" href="https://hududlar.uz" />
         
         {/* Structured Data */}
         <script
@@ -142,7 +142,7 @@ export default function RootLayout({
               "@type": "SoftwareApplication",
               "name": "Hududlar",
               "description": "O'zbekistonning barcha viloyat, tuman va qishloqlarini olish uchun TypeScript kutubxonasi",
-              "url": "https://hududlar.dev",
+              "url": "https://hududlar.uz",
               "applicationCategory": "DeveloperApplication",
               "operatingSystem": "Cross-platform",
               "programmingLanguage": "TypeScript",

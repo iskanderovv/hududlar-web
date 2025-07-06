@@ -19,6 +19,6 @@ export default function robots(): MetadataRoute.Robots {
         crawlDelay: 1,
       },
     ],
-    sitemap: "https://hududlar.dev/sitemap.xml",
+    sitemap: "https://hududlar.uz/sitemap.xml",
   }
 }
