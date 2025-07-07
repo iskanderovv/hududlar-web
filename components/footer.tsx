@@ -81,7 +81,7 @@ export default function Footer() {
             <ul className="space-y-3 text-slate-400">
               <li>
                 <Link
-                  href="https://github.com/yourusername/hududlar"
+                  href="https://github.com/iskanderovv/hududlar"
                   className="hover:text-white transition-colors flex items-center"
                 >
                   <Github className="h-4 w-4 mr-2" />
