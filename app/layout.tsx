@@ -10,6 +10,7 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
+   metadataBase: new URL("https://hududlar.uz"),
   title: "Hududlar - O'zbekiston Ma'muriy Hududlari | TypeScript Kutubxonasi",
   description:
     "O'zbekistonning barcha viloyat, tuman va qishloqlarini olish uchun eng yaxshi TypeScript kutubxonasi. 14 viloyat, 200+ tuman, 1000+ qishloq ma'lumotlari. O'zbek va rus tillarida qo'llab-quvvatlash.",
