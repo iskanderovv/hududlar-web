@@ -47,15 +47,6 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="#api"
-                  className="hover:text-white transition-colors flex items-center"
-                >
-                  <ChevronRight className="h-4 w-4 mr-1" />
-                  {t.apiReference}
-                </Link>
-              </li>
-              <li>
-                <Link
                   href="#install"
                   className="hover:text-white transition-colors flex items-center"
                 >
