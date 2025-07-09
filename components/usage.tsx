@@ -2,19 +2,149 @@
 
 import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card"
-import { Badge } from "../components/ui/badge"
-import { Shield, Package, BookOpen } from "lucide-react"
-import type { Language } from "../components/language-switcher"
+import { Button } from "../components/ui/button"
+import { Shield, Package, BookOpen, TreePine, Search, Copy, Check } from "lucide-react"
 import { useTranslation } from "../lib/translations"
+import { useLanguage } from "@/lib/language-context"
+
+interface CodeBlockProps {
+  code: string
+  className?: string
+}
+
+declare var navigator: any
+
+function CodeBlock({ code, className = "" }: CodeBlockProps) {
+  const [copied, setCopied] = useState(false)
+
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(code)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch (err) {
+      console.error("Failed to copy text: ", err)
+    }
+  }
+
+  return (
+    <div className="relative group">
+      <pre
+        className={`bg-slate-900/50 text-slate-300 p-6 rounded-xl text-sm overflow-x-auto font-mono leading-relaxed border border-slate-700 ${className}`}
+      >
+        <code>{code}</code>
+      </pre>
+      <Button
+        variant="ghost"
+        size="sm"
+        className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white border border-slate-600"
+        onClick={copyToClipboard}
+      >
+        {copied ? (
+          <>
+            <Check className="h-4 w-4 mr-1" />
+            Copied!
+          </>
+        ) : (
+          <>
+            <Copy className="h-4 w-4 mr-1" />
+            Copy
+          </>
+        )}
+      </Button>
+    </div>
+  )
+}
 
 export default function Usage() {
-  const [currentLanguage, setCurrentLanguage] = useState<Language>("uz")
+  const { currentLanguage } = useLanguage()
   const t = useTranslation(currentLanguage)
+
+  const basicUsageCode = `import {
+  getRegions,
+  getDistrictsByRegionId,
+  getVillagesByDistrictId
+} from 'hududlar';
+
+// 1. Barcha viloyatlarni olish
+const regions = getRegions();
+console.log(regions.length); // 14
+
+// 2. Viloyatga tegishli tumanlar
+const districts = getDistrictsByRegionId(2);
+console.log(districts.map(d => d.name_uz));
+
+// 3. Tumanga tegishli qishloqlar
+const villages = getVillagesByDistrictId(16);
+console.log(villages.length); // 13`
+
+  const findByIdCode = `import {
+  findRegionById,
+  findDistrictById,
+  findVillageById
+} from 'hududlar';
+
+// ID bo'yicha viloyat topish
+const region = findRegionById(2);
+console.log(region.name_uz); // "Andijon viloyati"
+
+// ID bo'yicha tuman topish
+const district = findDistrictById(16);
+console.log(district.name_uz); // "Andijon shahri"
+
+// ID bo'yicha qishloq topish
+const village = findVillageById(217);
+console.log(village.name_uz); // "Qishloq nomi"`
+
+  const regionTreeCode = `import { getRegionTree } from 'hududlar';
+
+// To'liq daraxt strukturasi
+const tree = getRegionTree();
+
+// Birinchi viloyatning birinchi tumanining qishloqlari
+console.log(tree[0].districts[0].villages);
+
+// Har bir viloyat bo'yicha iteratsiya
+tree.forEach(region => {
+  console.log(\`Viloyat: \${region.name_uz}\`);
+  region.districts.forEach(district => {
+    console.log(\`  Tuman: \${district.name_uz}\`);
+    console.log(\`    Qishloqlar soni: \${district.villages.length}\`);
+  });
+});`
+
+  const typescriptCode = `import { Region, District, Village } from 'hududlar';
+
+interface Region {
+  id: number
+  soato_id: number
+  name_uz: string
+  name_oz: string
+  name_ru: string
+}
+
+interface District {
+  id: number
+  region_id: number
+  soato_id: number
+  name_uz: string
+  name_oz: string
+  name_ru: string
+}
+
+interface Village {
+  id: number
+  district_id: number
+  soato_id: number
+  name_uz: string
+  name_oz: string
+  name_ru: string
+}`
 
   return (
     <div>
-      {/* Usage Section */}
-      <section id="usage" className="py-20">
+      {/* Usage Examples Section */}
+      <section id="usage" className="py-10">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
@@ -23,6 +153,7 @@ export default function Usage() {
           </div>
 
           <div className="space-y-12">
+            {/* Basic Usage */}
             <Card className="border-slate-700 bg-slate-800/50 backdrop-blur-sm hover-lift">
               <CardHeader className="border-b border-slate-700">
                 <div className="flex items-center space-x-3">
@@ -31,153 +162,96 @@ export default function Usage() {
                   </div>
                   <div>
                     <CardTitle className="text-2xl text-white">{t.basicUsage}</CardTitle>
-                    <CardDescription className="text-lg text-slate-300">{t.basicUsageDesc}</CardDescription>
+                    <CardDescription className="text-lg text-slate-300">
+                      {currentLanguage === "uz" ? "Asosiy funksiyalardan foydalanish" : "Using basic functions"}
+                    </CardDescription>
                   </div>
                 </div>
               </CardHeader>
               <CardContent className="p-8">
-                <pre className="bg-slate-900/50 text-slate-300 p-6 rounded-xl text-sm overflow-x-auto font-mono leading-relaxed border border-slate-700">
-                  <code>{`import { getRegions, getDistricts, getVillages } from 'hududlar';
-
-// Barcha viloyatlarni olish
-const regions = getRegions();
-console.log(regions.length); // 14
-
-// Toshkent viloyati tumanlarini olish
-const tashkentDistricts = getDistricts(1727);
-console.log(tashkentDistricts[0].name_uz); // "Bekobod shahri"
-
-// Ma'lum tuman qishloqlarini olish
-const villages = getVillages(170301);
-console.log(villages[0].name_uz); // "Bog'bon MFY"`}</code>
-                </pre>
+                <CodeBlock code={basicUsageCode} />
               </CardContent>
             </Card>
 
+            {/* Find by ID */}
             <Card className="border-slate-700 bg-slate-800/50 backdrop-blur-sm hover-lift">
               <CardHeader className="border-b border-slate-700">
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10 gradient-bg-3 rounded-lg flex items-center justify-center">
+                    <Search className="h-5 w-5 text-white" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-2xl text-white">
+                      {currentLanguage === "uz" ? "ID bo'yicha topish" : "Find by ID"}
+                    </CardTitle>
+                    <CardDescription className="text-lg text-slate-300">
+                      {currentLanguage === "uz" ? "Ma'lum ID bo'yicha ma'lumot topish" : "Find specific data by ID"}
+                    </CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="p-8">
+                <CodeBlock code={findByIdCode} />
+              </CardContent>
+            </Card>
+
+            {/* Region Tree */}
+            <Card className="border-slate-700 bg-slate-800/50 backdrop-blur-sm hover-lift">
+              <CardHeader className="border-b border-slate-700">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 gradient-bg-1 rounded-lg flex items-center justify-center">
+                    <TreePine className="h-5 w-5 text-white" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-2xl text-white">
+                      {currentLanguage === "uz" ? "To'liq daraxt ko'rinishi" : "Complete Tree Structure"}
+                    </CardTitle>
+                    <CardDescription className="text-lg text-slate-300">
+                      {currentLanguage === "uz"
+                        ? "Viloyat → Tuman → Qishloq ierarxiyasi"
+                        : "Region → District → Village hierarchy"}
+                    </CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="p-8">
+                <CodeBlock code={regionTreeCode} />
+              </CardContent>
+            </Card>
+
+            {/* TypeScript Support */}
+            <Card className="border-slate-700 bg-slate-800/50 backdrop-blur-sm hover-lift">
+              <CardHeader className="border-b border-slate-700">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 gradient-bg-2 rounded-lg flex items-center justify-center">
                     <Shield className="h-5 w-5 text-white" />
                   </div>
                   <div>
                     <CardTitle className="text-2xl text-white">{t.typescriptSupport}</CardTitle>
-                    <CardDescription className="text-lg text-slate-300">{t.typescriptSupportDesc}</CardDescription>
+                    <CardDescription className="text-lg text-slate-300">
+                      {currentLanguage === "uz"
+                        ? "To'liq TypeScript qo'llab-quvvatlash"
+                        : "Full TypeScript support with types"}
+                    </CardDescription>
                   </div>
                 </div>
               </CardHeader>
               <CardContent className="p-8">
-                <pre className="bg-slate-900/50 text-slate-300 p-6 rounded-xl text-sm overflow-x-auto font-mono leading-relaxed border border-slate-700">
-                  <code>{`import { Region, District, Village } from 'hududlar';
-
-const region: Region = {
-  soato_id: 1703,
-  name_uz: "Andijon viloyati",
-  name_oz: "Андижон вилояти", 
-  name_ru: "Андижанская область",
-  type: "region"
-};`}</code>
-                </pre>
+                <CodeBlock code={typescriptCode} />
               </CardContent>
             </Card>
           </div>
         </div>
       </section>
 
-      {/* API Reference */}
-      <section id="api" className="py-20 bg-slate-800/30">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
-              {t.apiReferenceTitle}
-            </h2>
-          </div>
-
-          <div className="space-y-8">
-            <Card className="border-slate-700 bg-slate-800/50 backdrop-blur-sm hover-lift">
-              <CardHeader className="border-b border-slate-700">
-                <CardTitle className="text-xl font-mono text-blue-400">getRegions()</CardTitle>
-                <CardDescription className="text-lg text-slate-300">{t.getRegionsDesc}</CardDescription>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-2">
-                    <Badge className="bg-green-500/20 text-green-300 border-green-500/30">{t.returns}</Badge>
-                    <code className="bg-slate-900/50 px-3 py-1 rounded text-slate-300 border border-slate-600">
-                      Region[]
-                    </code>
-                  </div>
-                  <p className="text-slate-300">
-                    <strong>{t.description}:</strong> {t.getRegionsDescription}
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-slate-700 bg-slate-800/50 backdrop-blur-sm hover-lift">
-              <CardHeader className="border-b border-slate-700">
-                <CardTitle className="text-xl font-mono text-blue-400">getDistricts(regionId: number)</CardTitle>
-                <CardDescription className="text-lg text-slate-300">{t.getDistrictsDesc}</CardDescription>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="space-y-4">
-                  <div>
-                    <Badge className="bg-orange-500/20 text-orange-300 border-orange-500/30 mb-3">{t.parameters}</Badge>
-                    <ul className="list-disc list-inside ml-4 space-y-2 text-slate-300">
-                      <li>
-                        <code className="bg-slate-900/50 px-2 py-1 rounded border border-slate-600">regionId</code> -
-                        Viloyatning SOATO ID raqami
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Badge className="bg-green-500/20 text-green-300 border-green-500/30">{t.returns}</Badge>
-                    <code className="bg-slate-900/50 px-3 py-1 rounded text-slate-300 border border-slate-600">
-                      District[]
-                    </code>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-slate-700 bg-slate-800/50 backdrop-blur-sm hover-lift">
-              <CardHeader className="border-b border-slate-700">
-                <CardTitle className="text-xl font-mono text-blue-400">getVillages(districtId: number)</CardTitle>
-                <CardDescription className="text-lg text-slate-300">{t.getVillagesDesc}</CardDescription>
-              </CardHeader>
-              <CardContent className="p-8">
-                <div className="space-y-4">
-                  <div>
-                    <Badge className="bg-orange-500/20 text-orange-300 border-orange-500/30 mb-3">{t.parameters}</Badge>
-                    <ul className="list-disc list-inside ml-4 space-y-2 text-slate-300">
-                      <li>
-                        <code className="bg-slate-900/50 px-2 py-1 rounded border border-slate-600">districtId</code> -
-                        Tumanning SOATO ID raqami
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Badge className="bg-green-500/20 text-green-300 border-green-500/30">{t.returns}</Badge>
-                    <code className="bg-slate-900/50 px-3 py-1 rounded text-slate-300 border border-slate-600">
-                      Village[]
-                    </code>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Install Section */}
-      <section id="install" className="py-20">
+      {/* Installation Section */}
+      <section id="install" className="pb-20">
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-yellow-400 to-red-500 bg-clip-text text-transparent">
               {t.installation}
             </h2>
           </div>
-
           <div className="grid md:grid-cols-2 gap-8">
             <Card className="border-slate-700 bg-slate-800/50 backdrop-blur-sm hover-lift">
               <CardHeader className="border-b border-slate-700">
@@ -189,9 +263,7 @@ const region: Region = {
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-8">
-                <pre className="bg-slate-900/50 p-6 rounded-xl text-sm font-mono text-slate-300 border border-slate-700">
-                  <code>npm install hududlar</code>
-                </pre>
+                <CodeBlock code="npm install hududlar" />
               </CardContent>
             </Card>
 
@@ -205,9 +277,7 @@ const region: Region = {
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-8">
-                <pre className="bg-slate-900/50 p-6 rounded-xl text-sm font-mono text-slate-300 border border-slate-700">
-                  <code>yarn add hududlar</code>
-                </pre>
+                <CodeBlock code="yarn add hududlar" />
               </CardContent>
             </Card>
           </div>

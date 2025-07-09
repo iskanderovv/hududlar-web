@@ -4,8 +4,6 @@ export const translations = {
   en: {
     // Header
     usage: "Usage",
-    apiReference: "API Reference",
-    search: "Search",
     install: "Install",
 
     // Hero
@@ -29,7 +27,7 @@ export const translations = {
     installation: "Installation",
 
     // Usage
-    usageExamples: "Usage Examples",
+    usageExamples: "Usage",
     basicUsage: "Basic Usage",
     basicUsageDesc: "Get regions, districts, and villages",
     searchFunctionality: "Search Functionality",
@@ -37,39 +35,17 @@ export const translations = {
     typescriptSupport: "TypeScript Support",
     typescriptSupportDesc: "Full type safety and IntelliSense",
 
-    // API Reference
-    apiReferenceTitle: "API Reference",
-    getRegionsDesc: "Returns all regions (viloyat) of Uzbekistan",
-    getDistrictsDesc: "Returns districts and cities for a specific region",
-    getVillagesDesc: "Returns villages and MFYs for a specific district",
-    searchDesc: "Search across all administrative divisions",
-    returns: "Returns",
-    parameters: "Parameters",
-    description: "Description",
-    getRegionsDescription:
-      "Get all 14 regions of Uzbekistan including the Republic of Karakalpakstan and Tashkent City",
-
-    // Search Demo
-    interactiveSearch: "Interactive Search",
-    trySearchApi: "Try the Search API",
-    searchPlaceholder: "Search for Tashkent, Samarkand, etc...",
-    searchExamples: "Try searching for: Tashkent, Samarkand, Bukhara, or Fergana",
-    searchButton: "Search",
-    searchResults: "Results:",
-    noResults: "No results found",
-
     // Footer
     footerDescription: "Administrative regions of Uzbekistan for developers",
     documentation: "Documentation",
     resources: "Resources",
     community: "Community",
-    copyright: "MIT License. Made with ❤️ for Uzbekistan",
+    copyright: "MIT License. Developed by AII for Uzbekistan",
   },
 
   uz: {
     // Header
     usage: "Foydalanish",
-    apiReference: "API Ma'lumotnoma",
     search: "Qidiruv",
     install: "O'rnatish",
 
@@ -94,7 +70,7 @@ export const translations = {
     installation: "O'rnatish",
 
     // Usage
-    usageExamples: "Foydalanish Misollari",
+    usageExamples: "Foydalanish",
     basicUsage: "Asosiy Foydalanish",
     basicUsageDesc: "Viloyat, tuman va qishloqlarni olish",
     searchFunctionality: "Qidiruv Funksiyasi",
@@ -102,33 +78,12 @@ export const translations = {
     typescriptSupport: "TypeScript Qo'llab-quvvatlash",
     typescriptSupportDesc: "To'liq tip xavfsizligi va IntelliSense",
 
-    // API Reference
-    apiReferenceTitle: "API Ma'lumotnoma",
-    getRegionsDesc: "O'zbekistonning barcha viloyatlarini qaytaradi",
-    getDistrictsDesc: "Muayyan viloyat uchun tuman va shaharlarni qaytaradi",
-    getVillagesDesc: "Muayyan tuman uchun qishloq va MFYlarni qaytaradi",
-    searchDesc: "Barcha ma'muriy bo'linmalar bo'ylab qidiruv",
-    returns: "Qaytaradi",
-    parameters: "Parametrlar",
-    description: "Tavsif",
-    getRegionsDescription:
-      "Qoraqalpog'iston Respublikasi va Toshkent shahri bilan birga O'zbekistonning barcha 14 viloyatini olish",
-
-    // Search Demo
-    interactiveSearch: "Interaktiv Qidiruv",
-    trySearchApi: "Qidiruv API-ni Sinab Ko'ring",
-    searchPlaceholder: "Toshkent, Samarqand va boshqalarni qidiring...",
-    searchExamples: "Qidirib ko'ring: Toshkent, Samarqand, Buxoro yoki Farg'ona",
-    searchButton: "Qidirish",
-    searchResults: "Natijalar:",
-    noResults: "Hech narsa topilmadi",
-
     // Footer
     footerDescription: "Dasturchilar uchun O'zbekistonning ma'muriy hududlari",
     documentation: "Hujjatlar",
     resources: "Resurslar",
     community: "Jamiyat",
-    copyright: "MIT Litsenziyasi. O'zbekiston uchun ❤️ bilan yaratilgan",
+    copyright: "MIT Litsenziyasi. O'zbekiston uchun AII tomonidan yaratilgan",
   },
 }
 

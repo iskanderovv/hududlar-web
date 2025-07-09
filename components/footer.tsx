@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react";
 import {
   Github,
   Package,
@@ -8,12 +7,12 @@ import {
   Star,
   Users
 } from "lucide-react";
-import { type Language } from "../components/language-switcher";
 import { useTranslation } from "../lib/translations";
 import Link from "next/link";
+import { useLanguage } from "@/lib/language-context";
 
 export default function Footer() {
-  const [currentLanguage, setCurrentLanguage] = useState<Language>("en");
+  const { currentLanguage } = useLanguage();
   const t = useTranslation(currentLanguage);
   return (
     <footer className="bg-slate-900/50 border-t border-slate-800 py-16">
@@ -44,15 +43,6 @@ export default function Footer() {
                 >
                   <ChevronRight className="h-4 w-4 mr-1" />
                   {t.usage}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#search"
-                  className="hover:text-white transition-colors flex items-center"
-                >
-                  <ChevronRight className="h-4 w-4 mr-1" />
-                  {t.search}
                 </Link>
               </li>
               <li>
@@ -99,7 +89,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="https://github.com/iskanderovv/hududlar/issues"
                   className="hover:text-white transition-colors flex items-center"
                 >
                   <Star className="h-4 w-4 mr-2" />
@@ -108,7 +98,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="https://github.com/iskanderovv"
                   className="hover:text-white transition-colors flex items-center"
                 >
                   <Users className="h-4 w-4 mr-2" />
@@ -122,18 +112,13 @@ export default function Footer() {
             <h3 className="font-bold mb-6 text-lg text-white">{t.community}</h3>
             <ul className="space-y-3 text-slate-400">
               <li>
-                <Link href="#" className="hover:text-white transition-colors">
-                  Discord
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-white transition-colors">
-                  Twitter
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-white transition-colors">
+                <Link href="https://t.me/mernstackfornow" className="hover:text-white transition-colors">
                   Telegram
+                </Link>
+              </li>
+              <li>
+                <Link href="mailto:iskandarov_a@nuu.uz" className="hover:text-white transition-colors">
+                  Email
                 </Link>
               </li>
             </ul>

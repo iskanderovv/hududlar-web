@@ -6,10 +6,10 @@ import Header from "@/components/header";
 import Hero from "@/components/hero";
 import Usage from "@/components/usage";
 import Footer from "@/components/footer";
+import { useLanguage } from "@/lib/language-context";
 
 export default function HomePage() {
-  const [currentLanguage, setCurrentLanguage] = useState<Language>("en");
-
+  const { currentLanguage } = useLanguage();
   const getLanguageClass = (language: Language) => {
     switch (language) {
       case "uz":

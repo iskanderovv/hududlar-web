@@ -1,21 +1,20 @@
 "use client"
+
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Globe } from "lucide-react"
+import { Globe } from 'lucide-react'
+import { useLanguage } from "@/lib/language-context"
 
 export type Language = "en" | "uz"
-
-interface LanguageSwitcherProps {
-  currentLanguage: Language
-  onLanguageChange: (language: Language) => void
-}
 
 const languages = {
   en: { name: "English", flag: "🇺🇸" },
   uz: { name: "O'zbekcha", flag: "🇺🇿" },
 }
 
-export function LanguageSwitcher({ currentLanguage, onLanguageChange }: LanguageSwitcherProps) {
+export function LanguageSwitcher() {
+  const { currentLanguage, setCurrentLanguage } = useLanguage()
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -33,7 +32,7 @@ export function LanguageSwitcher({ currentLanguage, onLanguageChange }: Language
         {Object.entries(languages).map(([code, { name, flag }]) => (
           <DropdownMenuItem
             key={code}
-            onClick={() => onLanguageChange(code as Language)}
+            onClick={() => setCurrentLanguage(code as Language)}
             className={`${currentLanguage === code ? "bg-slate-700" : ""} text-slate-300 hover:text-white`}
           >
             <span className="mr-2">{flag}</span>
